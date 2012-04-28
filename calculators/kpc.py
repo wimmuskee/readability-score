@@ -5,11 +5,12 @@ This tool can calculate the AVI score of a Dutch text
 using the the old KPC method.
 http://nl.wikipedia.org/wiki/AVI_%28onderwijs%29
 
-Wim Muskee, april 2012
+Wim Muskee, 2012
 wimmuskee@gmail.com
 
 License: GPL-2
 """
+from __future__ import division
 from nltk.tokenize import sent_tokenize
 from hyphenator import Hyphenator
 
@@ -20,6 +21,8 @@ class KPC:
 		self.sent_count = 0
 		self.word_count = 0
 		self.syll_count = 0
+		self.sent_average = 0
+		self.word_average = 0
 
 
 	def get_avi( self, text ):
@@ -30,9 +33,9 @@ class KPC:
 			self.avi = 1
 		elif self.readingindex <= 123 and self.readingindex >= 112:
 			self.avi = 2
-		elif self.readingindex <= 120 and self.readingindex >= 108:
+		elif self.readingindex <= 120 and self.readingindex >= 108 and self.word_average >= 1.10:
 			self.avi = 3
-		elif self.readingindex <= 110 and self.readingindex >= 100:
+		elif self.readingindex <= 110 and self.readingindex >= 100 and self.word_average >= 1.15:
 			self.avi = 4
 		elif self.readingindex <= 99 and self.readingindex >= 94:
 			self.avi = 5
@@ -73,9 +76,9 @@ class KPC:
 				
 				
 		# calculate values
-		lzin = self.word_count / self.sent_count
-		lwoord = self.syll_count / self.word_count
+		self.sent_average = self.word_count / self.sent_count
+		self.word_average = self.syll_count / self.word_count
 		
-		self.readingindex = 192 - ( 2 * lzin ) - ( 200/3 * lwoord )	
+		self.readingindex = 192 - ( 2 * self.sent_average ) - ( 200/3 * self.word_average )	
 
 
