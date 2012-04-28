@@ -1,0 +1,12 @@
+This is a Python AVI calculator
+
+AVI is the Dutch method for determining text difficulty. 
+(http://nl.wikipedia.org/wiki/AVI_%28onderwijs%29)
+This tool can calculate the AVI score of a Dutch text.
+Only the old KPC method is implemented for now. The new
+CITO method (CILT) isn't very well documented.
+
+Wim Muskee, april 2012
+wimmuskee@gmail.com
+
+License: GPL-2
