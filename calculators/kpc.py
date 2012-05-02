@@ -23,7 +23,8 @@ class KPC:
 		self.syll_count = 0
 		self.sent_average = 0
 		self.word_average = 0
-
+		self.hyphenator = Hyphenator("/usr/share/myspell/hyph_nl_NL.dic")
+		
 
 	def get_avi( self, text ):
 		"""Calculates AVI level using the old KPC method"""
@@ -58,10 +59,7 @@ class KPC:
 	
 
 	def set_kpc_readingindex( self, text ):
-		"""Calculates reading index required for AVI calculation."""
-		
-		# initialize
-		h = Hyphenator("/usr/share/myspell/hyph_nl_NL.dic")
+		"""Calculates reading index required for AVI calculation."""	
 		
 		# gather data
 		sentences = sent_tokenize( text )
@@ -72,7 +70,7 @@ class KPC:
 			self.word_count = self.word_count + len( words )
 			
 			for w in words:
-				self.syll_count = self.syll_count + h.inserted(w).count('-') + 1
+				self.syll_count = self.syll_count + self.hyphenator.inserted(w).count('-') + 1
 				
 				
 		# calculate values
