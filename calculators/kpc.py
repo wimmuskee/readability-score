@@ -29,16 +29,17 @@ class KPC:
 	def get_avi( self, text ):
 		"""Calculates AVI level using the old KPC method"""
 		self.set_kpc_readingindex( text )
+		readingindex = round(self.readingindex)
 		
-		if self.readingindex <= 127 and self.readingindex >= 123:
+		if readingindex <= 127 and readingindex >= 123:
 			self.avi = 1
-		elif self.readingindex <= 123 and self.readingindex >= 112:
+		elif readingindex <= 123 and readingindex >= 112:
 			self.avi = 2
-		elif self.readingindex <= 120 and self.readingindex >= 108 and self.word_average >= 1.10:
+		elif readingindex <= 120 and readingindex >= 108 and self.word_average >= 1.10:
 			self.avi = 3
-		elif self.readingindex <= 110 and self.readingindex >= 100 and self.word_average >= 1.15:
+		elif readingindex <= 110 and readingindex >= 100 and self.word_average >= 1.15:
 			self.avi = 4
-		elif self.readingindex <= 99 and self.readingindex >= 94:
+		elif readingindex <= 99 and readingindex >= 94:
 			self.avi = 5
 		else:
 			# The documentation follows the following pattern
@@ -52,14 +53,18 @@ class KPC:
 				max_index = max_index - 5
 				min_index = max_index - 4
 				
-				if self.readingindex <= max_index and self.readingindex >= min_index:
+				if readingindex <= max_index and readingindex >= min_index:
 					self.avi = avi + i
 					
 				i = i + 1
 	
 
 	def set_kpc_readingindex( self, text ):
-		"""Calculates reading index required for AVI calculation."""	
+		"""
+		Calculates reading index required for AVI calculation.
+		Sets readingindex as float.  When using with the avi 
+		calculating table, it should be rounded to a whole integer.
+		"""	
 		
 		# gather data
 		sentences = sent_tokenize( text )
@@ -72,11 +77,10 @@ class KPC:
 			for w in words:
 				self.syll_count = self.syll_count + self.hyphenator.inserted(w).count('-') + 1
 				
-				
+	
 		# calculate values
 		self.sent_average = self.word_count / self.sent_count
 		self.word_average = self.syll_count / self.word_count
-		
 		self.readingindex = 192 - ( 2 * self.sent_average ) - ( 200/3 * self.word_average )	
 
 
