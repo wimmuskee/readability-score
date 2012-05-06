@@ -18,7 +18,11 @@ from calculators.kpc import KPC
 
 c = KPC()
 
-c.get_avi( open( '/tmp/tex.txt' ).read())
+c.set_avi( open( '/tmp/tex.txt' ).read())
 
 print c.avi
 print c.readingindex
+
+
+c.set_minimum_age()
+print c.min_age
