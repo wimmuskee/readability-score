@@ -21,9 +21,11 @@ def getTextScores(text):
     scores = {
               'sent_count': 0, 
               'word_count': 0,
+              'letter_count':0,
               'syll_count': 0,
               'sentlen_average': 0,
-              'wordlen_average': 0
+              'wordlen_average': 0,
+              'letter_average': 0
               }
     
     sentences = sent_tokenize(text)
@@ -34,9 +36,19 @@ def getTextScores(text):
         scores['word_count'] = scores['word_count'] + len(words)
             
         for w in words:
+            scores['letter_count'] = scores['letter_count'] + len(w)
             scores['syll_count'] = scores['syll_count'] + hyphenator.inserted(w).count('-') + 1
 
     scores['sentlen_average'] = scores['word_count'] / scores['sent_count']
     scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
-    
+    scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
+    scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
     return scores
+
+
+def getMinimumAgeFromUsGrade(us_grade):
+    """
+    The age has a linear relation with the grade.
+    http://en.wikipedia.org/wiki/Education_in_the_United_States#School_grades
+    """
+    return round(us_grade + 5)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-This is the Flesch-Kincaid readability calculator
+This is the Coleman-Liau readability calculator
 
 This tool can calculate the readability score of a text
-using the Flesch–Kincaid Grade Level.
-http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_test
+using the Coleman–Liau index.
+http://en.wikipedia.org/wiki/Coleman-Liau_Index
 
 Wim Muskee, 2012
 wimmuskee@gmail.com
@@ -12,10 +12,10 @@ wimmuskee@gmail.com
 License: GPL-2
 """
 
-class FleschKincaid:
+class ColemanLiau:
     def __init__(self, text):
         from common import getTextScores, getMinimumAgeFromUsGrade
-
+        
         self.us_grade = 0
         self.min_age = 0
         self.scores = getTextScores(text)
@@ -28,4 +28,4 @@ class FleschKincaid:
         Calculates US grade as a float from the available
         text scores.
         """
-        self.us_grade = (0.39 * self.scores['sentlen_average']) + (11.8 * self.scores['wordlen_average']) - 15.59
+        self.us_grade = (0.0588 * self.scores['wordletter_average'] * 100) - (0.296 * self.scores['wordsent_average'] * 100) - 15.8
