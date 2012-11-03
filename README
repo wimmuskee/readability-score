@@ -1,10 +1,11 @@
-This is a Python AVI calculator
+This is a readability calculator library for Python.
 
-AVI is the Dutch method for determining text difficulty. 
-(http://nl.wikipedia.org/wiki/AVI_%28onderwijs%29)
-This tool can calculate the AVI score of a Dutch text.
-Only the old KPC method is implemented for now. The new
-CITO method (CILT) isn't very well documented.
+You're able to calculate the readability of a text using several algorithms:
+ - Flesch-Kincaid
+ - KPC (Dutch AVI score)
+
+All available calculators have a min_age property which describes the typical minimum age for a potential reader. 
+
 
 Wim Muskee, april 2012
 wimmuskee@gmail.com
@@ -14,15 +15,8 @@ License: GPL-2
 
 Example use script:
 
-from calculators.kpc import KPC
+from calculators.fleschkincaid import *
 
-c = KPC()
+fk = FleschKincaid(open('/tmp/tex.txt').read())
 
-c.set_avi( open( '/tmp/tex.txt' ).read())
-
-print c.avi
-print c.readingindex
-
-
-c.set_minimum_age()
-print c.min_age
+print fk.min_age
