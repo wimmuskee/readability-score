@@ -4,9 +4,11 @@ You're able to calculate the readability of a text using several algorithms:
  - Flesch-Kincaid
  - Coleman-Liau
  - Dale-Chall
+ - SMOG
  - KPC (Dutch AVI score)
 
 All available calculators have a min_age property which describes the typical minimum age for a potential reader.
+
 Although the algorithms themselves might not be language independent, they can be called as such using a custom locale. This locale has to be available as a myspell dictionary. By default, the locale is set to 'en_GB'.
 
 
@@ -27,7 +29,7 @@ from calculators.fleschkincaid import *
 from calculators.dalechall import *
 
 fk = FleschKincaid(open('/tmp/text.txt').read(), locale='nl_NL')
-dc = DaleChall(open( '/tmp/text.txt' ).read(), simplewordlist=simplewords, locale='de_DE')
+dc = DaleChall(open( '/tmp/text.txt' ).read(), simplewordlist=awordlist, locale='de_DE')
 
 print fk.min_age
 print dc.min_age

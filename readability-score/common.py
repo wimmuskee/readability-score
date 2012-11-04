@@ -23,6 +23,7 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
               'word_count': 0,              # nr of words
               'letter_count':0,             # nr of characters in words (no spaces)
               'syll_count': 0,              # nr of syllables
+              'polysyllword_count': 0,      # nr of polysyllables (words with more than 3 syllables)
               'simpleword_count': 0,        # nr of simplewords (depends on provided list)
               'sentlen_average': 0,         # words per sentence
               'wordlen_average': 0,         # syllables per word
@@ -38,8 +39,12 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
         scores['word_count'] = scores['word_count'] + len(words)
             
         for w in words:
+            syllables_count = hyphenator.inserted(w).count('-') + 1
             scores['letter_count'] = scores['letter_count'] + len(w)
-            scores['syll_count'] = scores['syll_count'] + hyphenator.inserted(w).count('-') + 1
+            scores['syll_count'] = scores['syll_count'] + syllables_count
+            
+            if syllables_count > 2:
+                scores['polysyllword_count'] = scores['polysyllword_count'] + 1
             
             if simplewordlist:
                 if w in simplewordlist:
