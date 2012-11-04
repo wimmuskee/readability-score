@@ -19,7 +19,7 @@ from __future__ import division
 
 class DaleChall:
     def __init__(self, text, locale='en_GB', simplewordlist=[]):
-        from common import getTextScores, getMinimumAgeFromUsGrade
+        from readability_score.common import getTextScores, getMinimumAgeFromUsGrade
         
         self.readingindex = 0
         self.us_grade = 0

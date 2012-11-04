@@ -9,10 +9,10 @@ setup(
     version = "0.2",
     author = "Wim Muskee",
     author_email = "wimmuskee@gmail.com",
-    description = ("This tool can calculate the readability score of a Dutch text."),
+    description = ("This tool can calculate the readability score of a text."),
     license = "GPL-2",
-    keywords = "text difficulty Dutch readability score",
+    keywords = "text difficulty readability score",
     packages=find_packages(),
-    namespace_packages=['readability-score'],
+    namespace_packages=['readability_score'],
     long_description=read('README')
 )

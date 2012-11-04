@@ -14,7 +14,7 @@ License: GPL-2
 
 class FleschKincaid:
     def __init__(self, text, locale='en_GB'):
-        from common import getTextScores, getMinimumAgeFromUsGrade
+        from readability_score.common import getTextScores, getMinimumAgeFromUsGrade
 
         self.us_grade = 0
         self.min_age = 0
