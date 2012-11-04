@@ -18,13 +18,13 @@ License: GPL-2
 from __future__ import division
 
 class DaleChall:
-    def __init__(self, text, simplewordlist):
+    def __init__(self, text, locale='en_GB', simplewordlist=[]):
         from common import getTextScores, getMinimumAgeFromUsGrade
         
         self.readingindex = 0
         self.us_grade = 0
         self.min_age = 0
-        self.scores = getTextScores(text, simplewordlist)
+        self.scores = getTextScores(text, locale, simplewordlist)
         self.setReadingIndex()
         self.setGrade()
         self.min_age = getMinimumAgeFromUsGrade(self.us_grade)

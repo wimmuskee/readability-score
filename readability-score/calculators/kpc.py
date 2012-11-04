@@ -14,13 +14,13 @@ License: GPL-2
 from __future__ import division
 
 class KPC():
-	def __init__(self, text):
+	def __init__(self, text, locale='en_GB'):
 		from common import getTextScores
 		
 		self.avi = 0
 		self.readingindex = 0
 		self.min_age = 0
-		self.scores = getTextScores(text)
+		self.scores = getTextScores(text, locale)
 		self.setReadingIndex()
 		self.setAvi()
 		self.setMinimumAge()

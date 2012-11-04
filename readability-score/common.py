@@ -10,14 +10,14 @@ License: GPL-2
 """
 from __future__ import division
 
-def getTextScores(text, simplewordlist=[]):
+def getTextScores(text, locale='en_GB', simplewordlist=[]):
     """
     Calculates several text scores based on a piece of text.
     """
     from nltk.tokenize import sent_tokenize
     from hyphenator import Hyphenator
     
-    hyphenator = Hyphenator("/usr/share/myspell/hyph_nl_NL.dic")
+    hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
     scores = {
               'sent_count': 0,              # nr of sentences
               'word_count': 0,              # nr of words
