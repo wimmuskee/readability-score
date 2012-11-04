@@ -10,7 +10,7 @@ License: GPL-2
 """
 from __future__ import division
 
-def getTextScores(text):
+def getTextScores(text, simplewordlist=[]):
     """
     Calculates several text scores based on a piece of text.
     """
@@ -19,13 +19,15 @@ def getTextScores(text):
     
     hyphenator = Hyphenator("/usr/share/myspell/hyph_nl_NL.dic")
     scores = {
-              'sent_count': 0, 
-              'word_count': 0,
-              'letter_count':0,
-              'syll_count': 0,
-              'sentlen_average': 0,
-              'wordlen_average': 0,
-              'letter_average': 0
+              'sent_count': 0,              # nr of sentences
+              'word_count': 0,              # nr of words
+              'letter_count':0,             # nr of characters in words (no spaces)
+              'syll_count': 0,              # nr of syllables
+              'simpleword_count': 0,        # nr of simplewords (depends on provided list)
+              'sentlen_average': 0,         # words per sentence
+              'wordlen_average': 0,         # syllables per word
+              'wordletter_average': 0,      # letters per word
+              'wordsent_average': 0         # sentences per word
               }
     
     sentences = sent_tokenize(text)
@@ -38,6 +40,11 @@ def getTextScores(text):
         for w in words:
             scores['letter_count'] = scores['letter_count'] + len(w)
             scores['syll_count'] = scores['syll_count'] + hyphenator.inserted(w).count('-') + 1
+            
+            if simplewordlist:
+                if w in simplewordlist:
+                    scores['simpleword_count'] = scores['simpleword_count'] + 1
+
 
     scores['sentlen_average'] = scores['word_count'] / scores['sent_count']
     scores['wordlen_average'] = scores['syll_count'] / scores['word_count']

@@ -3,12 +3,13 @@ This is a readability calculator library for Python.
 You're able to calculate the readability of a text using several algorithms:
  - Flesch-Kincaid
  - Coleman-Liau
+ - Dale-Chall
  - KPC (Dutch AVI score)
 
 All available calculators have a min_age property which describes the typical minimum age for a potential reader. 
 
 
-Wim Muskee, april 2012
+Wim Muskee, 2012
 wimmuskee@gmail.com
 
 License: GPL-2

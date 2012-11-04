@@ -11,6 +11,7 @@ wimmuskee@gmail.com
 
 License: GPL-2
 """
+from __future__ import division
 
 class KPC():
 	def __init__(self, text):
