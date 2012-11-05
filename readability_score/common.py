@@ -13,6 +13,9 @@ from __future__ import division
 def getTextScores(text, locale='en_GB', simplewordlist=[]):
     """
     Calculates several text scores based on a piece of text.
+    A custom locale can be provided for the hyphenator, which
+    maps to a Myspell hyphenator dictionary.
+    The simple word list should be provided in lower case. 
     """
     from nltk.tokenize import sent_tokenize
     from hyphenator import Hyphenator
@@ -47,7 +50,7 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
                 scores['polysyllword_count'] = scores['polysyllword_count'] + 1
             
             if simplewordlist:
-                if w in simplewordlist:
+                if w.lower() in simplewordlist:
                     scores['simpleword_count'] = scores['simpleword_count'] + 1
 
 

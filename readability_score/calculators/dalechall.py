@@ -6,9 +6,9 @@ This tool can calculate the readability score of a text
 using the Dale-Chall Readability Formula.
 http://en.wikipedia.org/wiki/Dale-Chall_Readability_Formula
 
-This algorithm requires a simple word list.  According to
-the documentation, some 3000 words which are considered
-easily readable.
+This algorithm requires a lower case simple word list. 
+According to the documentation, some 3000 words which are
+considered easily readable.
 
 Wim Muskee, 2012
 wimmuskee@gmail.com
