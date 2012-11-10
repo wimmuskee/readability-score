@@ -5,6 +5,7 @@ You're able to calculate the readability of a text using several algorithms:
  - Coleman-Liau
  - Dale-Chall
  - SMOG
+ - Automated Readability Index
  - KPC (Dutch AVI score)
 
 All available calculators have a min_age property which describes the typical minimum age for a potential reader.
