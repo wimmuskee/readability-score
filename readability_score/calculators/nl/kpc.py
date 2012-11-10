@@ -75,7 +75,7 @@ class KPC():
 		the documentation. 
 		"""
 		if self.avi < 8:
-			self.min_age = round( (self.avi/3) + 6 ) 
+			self.min_age = int(round( (self.avi/3) + 6 )) 
 		else:
-			self.min_age = round( (self.avi/2) + 5 ) 
+			self.min_age = int(round( (self.avi/2) + 5 )) 
 
