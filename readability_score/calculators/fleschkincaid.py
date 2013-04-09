@@ -3,7 +3,7 @@
 This is the Flesch-Kincaid readability calculator
 
 This tool can calculate the readability score of a text
-using the Flesch–Kincaid Grade Level.
+using the Flesch-Kincaid Grade Level.
 http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_test
 
 Wim Muskee, 2012

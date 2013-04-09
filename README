@@ -6,6 +6,7 @@ You're able to calculate the readability of a text using several algorithms:
  - Dale-Chall
  - SMOG
  - Automated Readability Index
+ - Flesch Reading Ease (does not have min_age)
 
 Dutch:
  - Flesch-Douma
@@ -17,7 +18,7 @@ All available calculators have a min_age property which describes the typical mi
 Although the algorithms themselves might not be language independent, they can be called as such using a custom locale. This locale has to be available as a myspell dictionary. By default, the locale is set to 'en_GB'.
 
 
-Wim Muskee, 2012
+Wim Muskee, 2012-2013
 wimmuskee@gmail.com
 
 License: GPL-2
@@ -30,8 +31,8 @@ License: GPL-2
 
 
 # Example:
-from calculators.fleschkincaid import *
-from calculators.dalechall import *
+from readability_score.calculators.fleschkincaid import *
+from readability_score.calculators.dalechall import *
 
 fk = FleschKincaid(open('/tmp/text.txt').read(), locale='nl_NL')
 dc = DaleChall(open( '/tmp/text.txt' ).read(), simplewordlist=awordlist, locale='de_DE')
