@@ -3,7 +3,7 @@
 This module contains common functions used
 in the various readability calculations.
 
-Wim Muskee, 2012
+Wim Muskee, 2012-2013
 wimmuskee@gmail.com
 
 License: GPL-2
@@ -19,7 +19,8 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     """
     from nltk.tokenize import sent_tokenize
     from hyphenator import Hyphenator
-    
+    import re
+
     hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
     scores = {
               'sent_count': 0,              # nr of sentences
@@ -38,9 +39,9 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     scores['sent_count'] = len(sentences)
 
     for s in sentences:
-        words = s.split( ' ' )
+        words = re.findall(r'\w+', s.decode('utf8'), flags = re.UNICODE)
         scores['word_count'] = scores['word_count'] + len(words)
-            
+
         for w in words:
             syllables_count = hyphenator.inserted(w).count('-') + 1
             scores['letter_count'] = scores['letter_count'] + len(w)
@@ -58,6 +59,7 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
     scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
     scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
+    scores["word_count"] = 0
     return scores
 
 
