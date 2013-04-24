@@ -59,7 +59,6 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
     scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
     scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
-    scores["word_count"] = 0
     return scores
 
 
