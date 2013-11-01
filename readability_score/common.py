@@ -14,14 +14,23 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     """
     Calculates several text scores based on a piece of text.
     A custom locale can be provided for the hyphenator, which
-    maps to a Myspell hyphenator dictionary.
+    maps to a Myspell hyphenator dictionary.  If the locale
+    is a file descriptor or file path the dictionary at that
+    path will be used instead of those in the default Myspell
+    location.
     The simple word list should be provided in lower case. 
     """
     from nltk.tokenize import sent_tokenize
     from hyphenator import Hyphenator
     import re
+    import os
 
-    hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
+    #check if the locale is supplied as a file
+    if os.path.exists(locale):
+      hyphenator = Hyphenator(locale)
+    else:
+      hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
+	    
     scores = {
               'sent_count': 0,              # nr of sentences
               'word_count': 0,              # nr of words
