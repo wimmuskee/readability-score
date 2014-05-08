@@ -3,7 +3,7 @@
 This module contains common functions used
 in the various readability calculations.
 
-Wim Muskee, 2012-2013
+Wim Muskee, 2012-2014
 wimmuskee@gmail.com
 
 License: GPL-2
@@ -27,10 +27,10 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
 
     #check if the locale is supplied as a file
     if os.path.exists(locale):
-      hyphenator = Hyphenator(locale)
+        hyphenator = Hyphenator(locale)
     else:
-      hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
-	    
+        hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
+
     scores = {
               'sent_count': 0,              # nr of sentences
               'word_count': 0,              # nr of words
@@ -64,10 +64,14 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
                     scores['simpleword_count'] = scores['simpleword_count'] + 1
 
 
-    scores['sentlen_average'] = scores['word_count'] / scores['sent_count']
-    scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
-    scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
-    scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
+    if scores['sent_count'] > 0:
+        scores['sentlen_average'] = scores['word_count'] / scores['sent_count']
+
+    if scores['word_count'] > 0:
+        scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
+        scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
+        scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
+
     return scores
 
 
