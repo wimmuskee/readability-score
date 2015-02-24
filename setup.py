@@ -13,6 +13,5 @@ setup(
     license = "GPL-2",
     keywords = "text difficulty readability score",
     packages=find_packages(),
-    namespace_packages=['readability_score'],
     long_description=read('README')
 )
