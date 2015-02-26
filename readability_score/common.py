@@ -3,7 +3,7 @@
 This module contains common functions used
 in the various readability calculations.
 
-Wim Muskee, 2012-2014
+Wim Muskee, 2012-2015
 wimmuskee@gmail.com
 
 License: GPL-2
@@ -44,11 +44,11 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
               'wordsent_average': 0         # sentences per word
               }
     
-    sentences = sent_tokenize(text)
+    sentences = sent_tokenize(text.decode('utf8'))
     scores['sent_count'] = len(sentences)
 
     for s in sentences:
-        words = re.findall(r'\w+', s.decode('utf8'), flags = re.UNICODE)
+        words = re.findall(r'\w+', s, flags = re.UNICODE)
         scores['word_count'] = scores['word_count'] + len(words)
 
         for w in words:
