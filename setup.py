@@ -13,7 +13,7 @@ setup(
     license = "GPL-2",
     keywords = "text difficulty readability score",
     packages=find_packages(),
-    long_description=read('README')
+    long_description=read('README'),
     install_requires = [
          'pyphen',
          'nltk'
