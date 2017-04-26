@@ -26,8 +26,7 @@ License: GPL-2
 
 # Dependencies
  - NLTK
- - python-hyphenator
- - myspell dictionary in your language
+ - Pyphen
 
 
 # Example:

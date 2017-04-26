@@ -21,15 +21,16 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     The simple word list should be provided in lower case. 
     """
     from nltk.tokenize import sent_tokenize
-    from hyphenator import Hyphenator
+    import pyphen
     import re
     import os
 
-    #check if the locale is supplied as a file
-    if os.path.exists(locale):
-        hyphenator = Hyphenator(locale)
-    else:
-        hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
+
+    # check if locale is supported
+    if locale not in pyphen.LANGUAGES:
+        raise LookupError("provided locale not supported by pyphen")
+
+    hyphenator = pyphen.Pyphen(lang=locale)
 
     scores = {
               'sent_count': 0,              # nr of sentences
@@ -85,3 +86,4 @@ def getMinimumAgeFromUsGrade(us_grade):
     http://en.wikipedia.org/wiki/Education_in_the_United_States#School_grades
     """
     return int(round(us_grade + 5))
+
