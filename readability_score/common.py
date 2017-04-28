@@ -44,12 +44,12 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
               'wordletter_average': 0,      # letters per word
               'wordsent_average': 0         # sentences per word
               }
-    
+
     if isinstance(text,unicode):
         sentences = sent_tokenize(text.encode('utf8'))
     else:
         sentences = sent_tokenize(text)
-    
+
     scores['sent_count'] = len(sentences)
 
     for s in sentences:
@@ -60,10 +60,10 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
             syllables_count = hyphenator.inserted(w).count('-') + 1
             scores['letter_count'] = scores['letter_count'] + len(w)
             scores['syll_count'] = scores['syll_count'] + syllables_count
-            
+
             if syllables_count > 2:
                 scores['polysyllword_count'] = scores['polysyllword_count'] + 1
-            
+
             if simplewordlist:
                 if w.lower() in simplewordlist:
                     scores['simpleword_count'] = scores['simpleword_count'] + 1

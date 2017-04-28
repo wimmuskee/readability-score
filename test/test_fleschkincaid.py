@@ -2,7 +2,7 @@ from unittest import TestCase, expectedFailure
 from readability_score.calculatortest import CalculatorTest
 from readability_score.calculators.fleschkincaid import *
 
-class FleshKincaidTestCase(TestCase,CalculatorTest):
+class FleschKincaidTestCase(TestCase,CalculatorTest):
     def setUp(self):
         CalculatorTest.__init__(self, 17)
         self.calc = FleschKincaid(self.text)
