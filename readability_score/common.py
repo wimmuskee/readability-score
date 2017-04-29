@@ -21,10 +21,21 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     The simple word list should be provided in lower case. 
     """
     from sys import version_info
-    from nltk.tokenize import sent_tokenize, word_tokenize
-    import pyphen
+    import warnings
     import re
     import os
+
+    with warnings.catch_warnings():
+        # catch NLTK warning, fixed in 4.2.2
+        warnings.filterwarnings("ignore",category=PendingDeprecationWarning,message='the imp module is deprecated in favour of importlib.*')
+        # catch ndg-httpsclient warning, fixed in 0.4.2
+        warnings.filterwarnings("ignore",category=ImportWarning,message='Not importing directory.*ndg.*')
+        # catch matplotlib warning, don't know what the issue is, no problem for this package
+        warnings.filterwarnings("ignore",category=ImportWarning,message='Not importing directory.*mpl_toolkits.*')
+
+        from nltk.tokenize import sent_tokenize, word_tokenize
+        import pyphen
+
 
     # check if locale is supported
     if locale not in pyphen.LANGUAGES:
