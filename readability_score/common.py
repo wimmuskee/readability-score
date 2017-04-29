@@ -3,7 +3,7 @@
 This module contains common functions used
 in the various readability calculations.
 
-Wim Muskee, 2012-2016
+Wim Muskee, 2012-2017
 wimmuskee@gmail.com
 
 License: GPL-2
@@ -20,11 +20,11 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
     location.
     The simple word list should be provided in lower case. 
     """
-    from nltk.tokenize import sent_tokenize
+    from sys import version_info
+    from nltk.tokenize import sent_tokenize, word_tokenize
     import pyphen
     import re
     import os
-
 
     # check if locale is supported
     if locale not in pyphen.LANGUAGES:
@@ -45,15 +45,20 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
               'wordsent_average': 0         # sentences per word
               }
 
-    if isinstance(text,unicode):
-        sentences = sent_tokenize(text.encode('utf8'))
-    else:
+    if version_info.major == 2:
+        if isinstance(text,unicode):
+            sentences = sent_tokenize(text)
+        else:
+            sentences = sent_tokenize(unicode(text,'utf-8'))
+    elif version_info.major >= 3:
         sentences = sent_tokenize(text)
+    else:
+        raise RuntimeError("Python version too low")
 
     scores['sent_count'] = len(sentences)
 
     for s in sentences:
-        words = re.findall(r'\w+', unicode(s.decode('utf-8')), flags = re.UNICODE)
+        words = re.findall(r'\w+', s, flags = re.UNICODE)
         scores['word_count'] = scores['word_count'] + len(words)
 
         for w in words:
