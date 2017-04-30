@@ -7,25 +7,24 @@ using the Flesch-Douma index.
 http://www.kennislink.nl/publicaties/hoe-begrijpelijk-is-mijn-tekst
 http://hchiemstra.wordpress.com/2011/02/24/is-de-leesbaarheid-van-een-tekst-objectief-te-meten/
 
-Wim Muskee, 2012
+Wim Muskee, 2012-2017
 wimmuskee@gmail.com
 
 License: GPL-2
 """
-class FleschDouma():
-    def __init__(self, text, locale='en_GB'):
-        from readability_score.common import getTextScores
+from readability_score.textanalyzer import TextAnalyzer
 
+
+class FleschDouma(TextAnalyzer):
+    def __init__(self, text, locale='en_GB'):
+        TextAnalyzer.__init__(self,text,locale)
+        self.setTextScores()
         self.readingindex = 0
-        self.min_age = 0
-        self.scores = getTextScores(text, locale)
         self.setReadingIndex()
         self.setMinimumAge()
 
-
     def setReadingIndex(self):
         self.readingindex = 206.84 - (0.77 * self.scores['sentlen_average']) - (93 * self.scores['wordlen_average'])
-
 
     def setMinimumAge(self):
         """

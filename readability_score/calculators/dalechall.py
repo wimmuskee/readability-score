@@ -10,34 +10,34 @@ This algorithm requires a lower case simple word list.
 According to the documentation, some 3000 words which are
 considered easily readable.
 
-Wim Muskee, 2012
+Wim Muskee, 2012-2017
 wimmuskee@gmail.com
 
 License: GPL-2
 """
 from __future__ import division
+from readability_score.common import getMinimumAgeFromUsGrade
+from readability_score.textanalyzer import TextAnalyzer
 
-class DaleChall:
+
+class DaleChall(TextAnalyzer):
     def __init__(self, text, locale='en_GB', simplewordlist=[]):
-        from readability_score.common import getTextScores, getMinimumAgeFromUsGrade
-        
+        TextAnalyzer.__init__(self,text,locale)
+        self.setSimpleWordsList(simplewordlist)
+        self.setTextScores()
         self.readingindex = 0
         self.us_grade = 0
-        self.min_age = 0
-        self.scores = getTextScores(text, locale, simplewordlist)
         self.setReadingIndex()
         self.setGrade()
         self.min_age = getMinimumAgeFromUsGrade(self.us_grade)
-
 
     def setReadingIndex(self):
         difficultwords = self.scores['word_count'] - self.scores['simpleword_count']
         difficultwords_perc = difficultwords / self.scores['word_count'] * 100
         self.readingindex = (0.1579 * difficultwords_perc) + (0.0496 * self.scores['sentlen_average'])
-        
+
         if difficultwords_perc > 5:
             self.readingindex = self.readingindex + 3.6365
-
 
     def setGrade(self):
         """

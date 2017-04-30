@@ -6,21 +6,21 @@ This tool can calculate the AVI readability score
 of a Dutch text using the old KPC method.
 http://nl.wikipedia.org/wiki/AVI_%28onderwijs%29
 
-Wim Muskee, 2012
+Wim Muskee, 2012-2017
 wimmuskee@gmail.com
 
 License: GPL-2
 """
 from __future__ import division
+from readability_score.textanalyzer import TextAnalyzer
 
-class KPC():
+
+class KPC(TextAnalyzer):
 	def __init__(self, text, locale='en_GB'):
-		from readability_score.common import getTextScores
-		
+		TextAnalyzer.__init__(self,text,locale)
+		self.setTextScores()
 		self.avi = 0
 		self.readingindex = 0
-		self.min_age = 0
-		self.scores = getTextScores(text, locale)
 		self.setReadingIndex()
 		self.setAvi()
 		self.setMinimumAge()
