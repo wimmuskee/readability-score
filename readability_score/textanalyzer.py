@@ -47,6 +47,7 @@ class TextAnalyzer:
             'wordletter_average': 0,      # letters per word
             'wordsent_average': 0         # sentences per word
         }
+        self.re_words = re.compile(r'\w+', flags = re.UNICODE)
         self.hyphenator = pyphen.Pyphen(lang=locale)
 
 
@@ -92,7 +93,7 @@ class TextAnalyzer:
         the individual countable scores.
         """
         for s in self.sentences:
-            words = re.findall(r'\w+', s, flags = re.UNICODE)
+            words = self.re_words.findall(s)
             self.scores['word_count'] += len(words)
 
             for w in words:
