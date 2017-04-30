@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "readability-score",
-    version = "1.3",
+    version = "2.0",
     author = "Wim Muskee",
     author_email = "wimmuskee@gmail.com",
     description = ("This tool can calculate the readability score of a text."),
