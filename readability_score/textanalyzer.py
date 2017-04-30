@@ -31,7 +31,7 @@ class TextAnalyzer:
         if locale not in pyphen.LANGUAGES:
             raise LookupError("provided locale not supported by pyphen")
 
-        self.text = text
+        self.setText(text)
         self.sentences = []
         self.simple_words = []
         self.min_age = 0
@@ -49,6 +49,17 @@ class TextAnalyzer:
         }
         self.re_words = re.compile(r'\w+', flags = re.UNICODE)
         self.hyphenator = pyphen.Pyphen(lang=locale)
+
+    def setText(self,text):
+        """
+        Sets the text, and makes sure Python2 is working with unicode.
+        """
+        if version_info.major == 1:
+            raise RuntimeError("Python version too low")
+        elif version_info.major == 2 and not isinstance(text,unicode):
+            self.text = unicode(text,'utf-8')
+        else:
+            self.text = text
 
 
     def setSimpleWordsList(self,simplewords):
@@ -74,16 +85,7 @@ class TextAnalyzer:
         """
         Tokenize the sentences from the text.
         """
-        if version_info.major == 2:
-            if isinstance(self.text,unicode):
-                self.sentences = sent_tokenize(self.text)
-            else:
-                self.sentences = sent_tokenize(unicode(self.text,'utf-8'))
-        elif version_info.major >= 3:
-            self.sentences = sent_tokenize(self.text)
-        else:
-            raise RuntimeError("Python version too low")
-
+        self.sentences = sent_tokenize(self.text)
         self.scores['sent_count'] = len(self.sentences)
 
 
