@@ -12,3 +12,8 @@ class LibTestCase(TestCase):
         except:
             fk = None
         self.assertTrue(hasattr(t,"scores"),"text analyzer not made with non default but correct locale")
+
+    def test_bad_simpleword_list(self):
+        t = TextAnalyzer("some text")
+        with self.assertRaises(ValueError):
+            t.setSimpleWordsList("this string")

@@ -54,7 +54,10 @@ class TextAnalyzer:
         """
         Simple word list for DaleChall calculator.
         """
-        self.simple_words = simplewords
+        if isinstance(simplewords,list):
+            self.simple_words = simplewords
+        else:
+            raise ValueError("A simple word list should be provided as list")
 
 
     def setTextScores(self):
