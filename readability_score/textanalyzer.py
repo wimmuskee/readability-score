@@ -28,7 +28,7 @@ with warnings.catch_warnings():
 class TextAnalyzer:
     def __init__(self,text,locale='en_GB'):
         # check if locale is supported
-        if locale not in pyphen.LANGUAGES:
+        if len(locale) < 2 or locale not in pyphen.LANGUAGES:
             raise LookupError("provided locale not supported by pyphen")
 
         self.setText(text)
@@ -49,6 +49,7 @@ class TextAnalyzer:
         }
         self.re_words = re.compile(r'\w+', flags = re.UNICODE)
         self.hyphenator = pyphen.Pyphen(lang=locale)
+
 
     def setText(self,text):
         """
