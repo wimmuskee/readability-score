@@ -32,6 +32,7 @@ class TextAnalyzer:
             raise LookupError("provided locale not supported by pyphen")
 
         self.setText(text)
+        self.setTokenizeLanguage(locale)
         self.sentences = []
         self.simple_words = []
         self.min_age = 0
@@ -73,6 +74,15 @@ class TextAnalyzer:
             raise ValueError("A simple word list should be provided as list")
 
 
+    def setTokenizeLanguage(self,locale):
+        """
+        Set the language NLTK's sent_tokenize uses.
+        Based on local available punkt tokenizers.
+        This is done in the init, but can also be changed by calling this.
+        """
+        self.tokenize_language = self.__getTokenizelanguage(locale[:2])
+
+
     def setTextScores(self):
         """
         Wrapper for setting all the scores.
@@ -84,9 +94,15 @@ class TextAnalyzer:
 
     def setSentences(self):
         """
-        Tokenize the sentences from the text.
+        Tokenize the sentences from the text. Depending on the locale,
+        a custom tokenize language may be used if available.
         """
-        self.sentences = sent_tokenize(self.text)
+        try:
+            self.sentences = sent_tokenize(self.text, language=self.tokenize_language)
+        except LookupError:
+            # maybe custom tokenize language not available on fs, do default
+            self.sentences = sent_tokenize(self.text, language="english")
+
         self.scores['sent_count'] = len(self.sentences)
 
 
@@ -124,3 +140,33 @@ class TextAnalyzer:
             self.scores['wordlen_average'] = self.scores['syll_count'] / self.scores['word_count']
             self.scores['wordletter_average'] = self.scores['letter_count'] / self.scores['word_count']
             self.scores['wordsent_average'] = self.scores['sent_count'] / self.scores['word_count']
+
+
+    def __getTokenizelanguage(self,locale_lookup):
+        """
+        Try to find a value for provided locale key.
+        Return "english" by default.
+        """
+        lookup_value = "english"
+        lookup = {
+            "cs": "czech",
+            "da": "danish",
+            "de": "german",
+            "el": "greek",
+            "es": "spanish",
+            "et": "estonian",
+            "en": "english",
+            "fr": "french",
+            "it": "italian",
+            "nb": "norwegian",
+            "nl": "dutch",
+            "po": "polish",
+            "pt": "portuguese",
+            "sl": "slovene",
+            "sv": "swedish"
+            }
+
+        if locale_lookup in lookup:
+            lookup_value = lookup[locale_lookup]
+
+        return lookup_value
