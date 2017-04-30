@@ -29,5 +29,6 @@ class ARI(TextAnalyzer):
         Calculates US grade as a float from the available
         text scores.
         """
-        self.us_grade = (4.71 * (self.scores['letter_count']/self.scores['word_count'])) + (0.5 * (self.scores['word_count']/self.scores['sent_count'])) - 21.43
+        if self.scores['word_count'] != 0 and self.scores['sent_count'] != 0:
+            self.us_grade = (4.71 * (self.scores['letter_count']/self.scores['word_count'])) + (0.5 * (self.scores['word_count']/self.scores['sent_count'])) - 21.43
  

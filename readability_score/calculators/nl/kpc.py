@@ -43,7 +43,9 @@ class KPC(TextAnalyzer):
 		"""
 		readingindex = round(self.readingindex)
 		
-		if readingindex <= 127 and readingindex >= 123:
+		if readingindex > 127:
+			self.avi = 0
+		elif readingindex <= 127 and readingindex >= 123:
 			self.avi = 1
 		elif readingindex <= 123 and readingindex >= 112:
 			self.avi = 2
@@ -74,7 +76,9 @@ class KPC(TextAnalyzer):
 		on set AVI score.  The calculation is based roughly on
 		the documentation. 
 		"""
-		if self.avi < 8:
+		if self.avi == 0:
+			self.min_age = 0
+		elif self.avi < 8:
 			self.min_age = int(round( (self.avi/3) + 6 )) 
 		else:
 			self.min_age = int(round( (self.avi/2) + 5 )) 

@@ -14,4 +14,11 @@ def getMinimumAgeFromUsGrade(us_grade):
     The age has a linear relation with the grade.
     http://en.wikipedia.org/wiki/Education_in_the_United_States#School_grades
     """
-    return int(round(us_grade + 5))
+    if us_grade == 0:
+        return 0
+
+    min_age = int(round(us_grade + 5))
+    if min_age < 0:
+        return 0
+    else:
+        return min_age

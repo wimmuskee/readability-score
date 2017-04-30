@@ -32,12 +32,13 @@ class DaleChall(TextAnalyzer):
         self.min_age = getMinimumAgeFromUsGrade(self.us_grade)
 
     def setReadingIndex(self):
-        difficultwords = self.scores['word_count'] - self.scores['simpleword_count']
-        difficultwords_perc = difficultwords / self.scores['word_count'] * 100
-        self.readingindex = (0.1579 * difficultwords_perc) + (0.0496 * self.scores['sentlen_average'])
+        if self.scores['word_count'] != 0:
+            difficultwords = self.scores['word_count'] - self.scores['simpleword_count']
+            difficultwords_perc = difficultwords / self.scores['word_count'] * 100
+            self.readingindex = (0.1579 * difficultwords_perc) + (0.0496 * self.scores['sentlen_average'])
 
-        if difficultwords_perc > 5:
-            self.readingindex = self.readingindex + 3.6365
+            if difficultwords_perc > 5:
+                self.readingindex = self.readingindex + 3.6365
 
     def setGrade(self):
         """

@@ -32,7 +32,7 @@ class SMOG(TextAnalyzer):
 
     def setTextScores(self):
         """
-        Smog custom wrapper for setting all the scores.
+        SMOG custom wrapper for setting all the scores.
         """
         self.setSentences()
         if self.scores["sent_count"] >= 30:
@@ -47,4 +47,5 @@ class SMOG(TextAnalyzer):
         Calculates US grade as a float from the available
         text scores.
         """
-        self.us_grade = (1.043 * ((self.scores['polysyllword_count'] * (30 / self.scores['sent_count']))**0.5)) + 3.1291
+        if self.scores['sent_count'] != 0:
+            self.us_grade = (1.043 * ((self.scores['polysyllword_count'] * (30 / self.scores['sent_count']))**0.5)) + 3.1291
