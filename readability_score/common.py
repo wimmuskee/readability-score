@@ -8,7 +8,6 @@ wimmuskee@gmail.com
 
 License: GPL-2
 """
-
 def getMinimumAgeFromUsGrade(us_grade):
     """
     The age has a linear relation with the grade.
@@ -17,7 +16,8 @@ def getMinimumAgeFromUsGrade(us_grade):
     if us_grade == 0:
         return 0
 
-    min_age = int(round(us_grade + 5))
+    from decimal import Decimal, ROUND_HALF_UP
+    min_age = int(Decimal(us_grade + 5).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
     if min_age < 0:
         return 0
     else:
