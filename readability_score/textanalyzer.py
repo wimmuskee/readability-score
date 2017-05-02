@@ -12,6 +12,7 @@ from __future__ import division
 from sys import version_info
 import warnings
 import re
+import os
 
 with warnings.catch_warnings():
     # catch NLTK warning, fixed in 4.2.2
@@ -27,12 +28,8 @@ with warnings.catch_warnings():
 
 class TextAnalyzer:
     def __init__(self,text,locale='en_GB'):
-        # check if locale is supported
-        if len(locale) < 2 or locale not in pyphen.LANGUAGES:
-            raise LookupError("provided locale not supported by pyphen")
-
         self.setText(text)
-        self.setTokenizeLanguage(locale)
+        self.setLocale(locale)
         self.sentences = []
         self.simple_words = []
         self.min_age = 0
@@ -49,7 +46,6 @@ class TextAnalyzer:
             'wordsent_average': 0         # sentences per word
         }
         self.re_words = re.compile(r'\w+', flags = re.UNICODE)
-        self.hyphenator = pyphen.Pyphen(lang=locale)
 
 
     def setText(self,text):
@@ -62,6 +58,19 @@ class TextAnalyzer:
             self.text = unicode(text,'utf-8')
         else:
             self.text = text
+
+
+    def setLocale(self,locale):
+        """
+        Sets locale-related data.
+        """
+        if os.path.exists(locale):
+            self.hyphenator = pyphen.Pyphen(filename=locale)
+        elif len(locale) > 1 and locale in pyphen.LANGUAGES:
+            self.hyphenator = pyphen.Pyphen(lang=locale)
+            self.setTokenizeLanguage(locale)
+        else:
+            raise LookupError("provided locale not supported by pyphen")
 
 
     def setSimpleWordsList(self,simplewords):
